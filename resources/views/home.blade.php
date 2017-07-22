@@ -8,7 +8,11 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    <div clas="row"><img src="{{ URL::to('/images') }}/default.jpg" style="width:25%;padding-bottom:10px;"/></div>
+                    <div clas="row"><h3>Hello {{ Auth::user()->name }}! </h3></div>
+                        
+                    
+                    
                 </div>
             </div>
         </div>
