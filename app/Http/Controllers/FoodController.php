@@ -81,6 +81,20 @@ class FoodController extends Controller
         return $foods;
     }
     
+    public static function getAllUserFoods()
+    {        
+        $userId = Auth::user()->id;
+        $foods = DB::table('userfoods')
+            ->join('foods','userfoods.food_id', '=', 'foods.food_id')
+            ->where('user_id', $userId)
+            ->groupBy('date')
+            ->orderBy('date','DESC')            
+            ->get();
+        
+        return $foods;
+    }
+    
+    
 
     
     /*

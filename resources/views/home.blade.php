@@ -1,3 +1,7 @@
+<?php
+    use App\Http\Controllers\PhotoController;
+?>
+
 @extends('layouts.app')
 
 
@@ -7,13 +11,34 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
-
                 <div class="panel-body">
-                    <div clas="row"><img src="{{ URL::to('/images') }}/default.jpg" style="width:25%;padding-bottom:10px;"/></div>
-                    <div clas="row"><h3>Hello {{ Auth::user()->name }}! </h3></div>
+                    <div class="row">
                         
-                    
-                    
+                            <?php
+                                $default = PhotoController::getdefault();
+                                if ( count($default) > 0 )
+                                {
+                                    foreach($default as $photo)
+                                    {
+                                        $url = $photo -> photo_url;
+                                        echo '<a href="/profile">
+                                            <img class="profimg" src="'.$url.'" />
+                                        </a>';
+                                    }
+                                }
+                                else
+                                {
+                            ?>
+                                    <a href="/profile">
+                                        <img class="profimg" src="{{ URL::to('/images') }}/default.jpg" />
+                                    </a>
+                            <?php
+                                }
+                            ?>
+                        
+                    </div>                        
+                    <div class="row title-bar">
+                    </div>                    
                 </div>
             </div>
         </div>

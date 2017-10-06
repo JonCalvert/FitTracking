@@ -31,6 +31,16 @@ Route::get('/foods', function () {
     return view('foods');
 });
 
+Route::get('/photos', function () {
+    return view('photos');
+});
+/*
+Route::get('/photo/removephoto/{$photoId}', function () {
+    return redirect()->action('PhotoController@removephoto',$photoId);
+});
+*/
+
+
 
 
 
@@ -42,3 +52,10 @@ Route::resource('/addnewfood', 'FoodController@addnew');
 Route::resource('/addfood', 'FoodController@add');
 Route::resource('/addnewworkout', 'WorkoutController@addnew');
 Route::resource('/addworkout', 'WorkoutController@add');
+
+Route::get('photo/removephoto/{photoId}', ['as' => 'photo.removephoto', 'uses' => 'PhotoController@removephoto']);
+Route::get('photo/setdefault/{photoId}', ['as' => 'photo.setdefault', 'uses' => 'PhotoController@setdefault']);
+Route::post('photo/addphoto', ['as' => 'photo.addphoto', 'uses' => 'PhotoController@addphoto']);
+
+
+//Route::resource('/photo', 'PhotoController@addphoto');

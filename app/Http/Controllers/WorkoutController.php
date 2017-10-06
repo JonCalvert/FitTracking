@@ -65,7 +65,17 @@ class WorkoutController extends Controller
         
         return $workouts;
     }
-    
+    public static function getAllUserWorkouts()
+    {        
+        $workouts = DB::table('userworkouts')
+            ->join('workouts','userworkouts.workout_id', '=', 'workouts.workout_id')
+            ->where('user_id', Auth::user()->id)
+            ->groupBy('date')
+            ->orderBy('date','DESC')  
+            ->get();
+        
+        return $workouts;
+    }
 
     
     /*
