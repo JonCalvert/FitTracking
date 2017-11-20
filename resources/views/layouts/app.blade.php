@@ -16,6 +16,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ URL::asset('css/lightbox.css') }}" >
     <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" >
@@ -28,6 +29,32 @@
             margin-right: 6px;
         }
     </style>
+    <script type="text/javascript">
+    function showElement(ele = "")
+    {
+        $("#"+ele).css("display","block");
+        
+    }
+    function hideElement(ele = "")
+    {
+        
+        $("#"+ele).css("display","none");
+        
+    }
+    function switchTab(tab = "")
+    {
+        tabs = $(".row .title-bar").find(".hmenu");
+        
+        for (var i =0; i<=tabs.length-1; i++)
+        {
+            var name = $(tabs[i]).attr("name");
+            name == tab ? showElement(name) : hideElement(name);
+           
+        } 
+    }
+    
+    
+</script>
     
 </head>
 <body id="app-layout">

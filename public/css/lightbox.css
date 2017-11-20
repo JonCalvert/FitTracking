@@ -1,6 +1,6 @@
 /* Preload images */
 body:after {
-  content: url(/WorkoutDB/pictures/overlay/close.png) url(/WorkoutDB/pictures/overlay/loading.gif) url(/WorkoutDB/pictures/overlay/prev.png) url(/WorkoutDB/pictures/overlay/next.png);
+  content: url(/css/images/close.png) url(/css/images/loading.gif) url(/css/images/prev.png) url(/css/images/next.png);
   display: none;
 }
 
@@ -9,17 +9,19 @@ body.lb-disable-scrolling {
 }
 
 .lightboxOverlay {
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 9999;
   background-color: black;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
   display: none;
 }
 
 .lightbox {
+  #pointer-events: none;
   position: absolute;
   left: 0;
   width: 100%;
@@ -75,7 +77,7 @@ body.lb-disable-scrolling {
   width: 32px;
   height: 32px;
   margin: 0 auto;
-  background: url(/WorkoutDB/pictures/overlay/loading.gif) no-repeat;
+  background: url(/css/images/loading.gif) no-repeat;
 }
 
 .lb-nav {
@@ -106,7 +108,7 @@ body.lb-disable-scrolling {
   width: 34%;
   left: 0;
   float: left;
-  background: url(/WorkoutDB/pictures/overlay/prev.png) left 48% no-repeat;
+  background: url(/css/images/prev.png) left 48% no-repeat;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   -webkit-transition: opacity 0.6s;
@@ -124,7 +126,7 @@ body.lb-disable-scrolling {
   width: 64%;
   right: 0;
   float: right;
-  background: url(/WorkoutDB/pictures/overlay/next.png) right 48% no-repeat;
+  background: url(/css/images/next.png) right 48% no-repeat;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   -webkit-transition: opacity 0.6s;
@@ -188,7 +190,7 @@ body.lb-disable-scrolling {
   float: right;
   width: 30px;
   height: 30px;
-  background: url(/WorkoutDB/pictures/overlay/close.png) top right no-repeat;
+  background: url(/css/images/close.png) top right no-repeat;
   text-align: right;
   outline: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);

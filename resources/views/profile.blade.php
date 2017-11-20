@@ -28,7 +28,6 @@
         for (var i =0; i<tabs.length-1; i++)
         {
             var name = $(tabs[i]).attr("name");
-            debugger;
             name == tab ? showElement(name) : hideElement(name);
            
         }    
@@ -43,7 +42,6 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Profile</div>
-
                 <div class="panel-body">
                     <div class="row">
                         <?php

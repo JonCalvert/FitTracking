@@ -31,10 +31,17 @@ class WorkoutController extends Controller
     public function add(Request $request)
     {       
         $id = $request->get('workouts');
+        $weight = $request->get('workoutweight');
+        $reps = $request->get('workoutreps');
+        $comment = $request->get('workoutcomment');
+        
         DB::table('userworkouts')->insert(
             ['workout_id' => $id,
              'user_id' =>  Auth::user()->id ,
-             'date' => date('Y-m-d G:i:s')
+             'date' => date('Y-m-d G:i:s'),
+             'workout_reps' => $reps,
+             'workout_weight' => $weight,
+             'workout_comment' => $comment
             ]
         );        
         return view('workouts');        
@@ -61,6 +68,7 @@ class WorkoutController extends Controller
             ->join('workouts','userworkouts.workout_id', '=', 'workouts.workout_id')
             ->where('date','like', '%'.$date.'%')
             ->where('user_id', $userId)
+            ->orderBy('userworkouts.workout_id')
             ->get();
         
         return $workouts;

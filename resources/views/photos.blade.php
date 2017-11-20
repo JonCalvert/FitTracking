@@ -26,7 +26,7 @@
                         ?>                        
                                     <a href="<?php echo $url; ?>" data-lightbox="defaultpicture" data-title = "<a href='/photo/removephoto/<?php echo $photo->photo_id; ?>'>Remove Picture</a>
                                                                                                                <a href='/photo/setdefault/<?php echo $photo->photo_id; ?>'>Set as default</a>">
-                                        <img class="profimg" src="<?php echo $url; ?>"  style="width:25%;padding-bottom:10px;"/>                                        
+                                        <img class="profimg" src="<?php echo $url; ?>"  style="width:25%; height:250px;padding-bottom:10px;"/>                                        
                                     </a>
                         <?php
                                         

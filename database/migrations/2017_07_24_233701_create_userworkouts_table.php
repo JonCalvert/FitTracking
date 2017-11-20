@@ -17,9 +17,9 @@ class CreateUserworkoutsTable extends Migration
             $table->integer('workout_id');
             $table->integer('user_id');
             $table->dateTime('date');
-            $table->integer('workout_sets');
             $table->integer('workout_reps');
             $table->integer('workout_weight');
+            $table->text('workout_comment');
             
         });
     }
