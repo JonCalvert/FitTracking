@@ -52,6 +52,8 @@ Route::resource('/addnewfood', 'FoodController@addnew');
 Route::resource('/addfood', 'FoodController@add');
 Route::resource('/addnewworkout', 'WorkoutController@addnew');
 Route::resource('/addworkout', 'WorkoutController@add');
+Route::get('workouts/listworkouts/{date}', 'WorkoutController@listworkouts' );
+Route::get('foods/listfoods/{date}', 'FoodController@listfoods' );
 
 Route::get('photo/removephoto/{photoId}', ['as' => 'photo.removephoto', 'uses' => 'PhotoController@removephoto']);
 Route::get('photo/setdefault/{photoId}', ['as' => 'photo.setdefault', 'uses' => 'PhotoController@setdefault']);

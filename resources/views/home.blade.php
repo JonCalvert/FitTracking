@@ -1,5 +1,6 @@
 <?php
     use App\Http\Controllers\PhotoController;
+    use App\Http\Controllers\UserController;
 ?>
 
 @extends('layouts.app')
@@ -37,8 +38,16 @@
                             ?>
                         
                     </div>                        
-                    <div class="row title-bar">
-                    </div>                    
+                    <div class="panel panel-default" id="act" style="display:block;" >
+                        <div class="panel-heading">Activity</div>
+                        <div class="panel-body" style="width:98%; margin:0px 1% 0px 1%;">
+                            <?php
+
+                                $activity = UserController::getUserActivity(Auth::user()->id);
+                                echo $activity;
+                            ?>                                       
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

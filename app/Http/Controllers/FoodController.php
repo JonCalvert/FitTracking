@@ -80,6 +80,18 @@ class FoodController extends Controller
         
         return $foods;
     }
+    public static function getUserFoodTotal($userId, String $date)
+    {        
+        
+        $foods = DB::table('userfoods')
+            ->join('foods','userfoods.food_id', '=', 'foods.food_id')            
+            ->select(DB::raw("sum(foods.food_calories) as calories, sum(foods.food_protein) as protein, sum(foods.food_carbs) as carbs, sum(foods.food_fats) as fats"))
+            ->where('date','like', '%'.$date.'%')
+            ->where('user_id', $userId)
+            ->get();
+
+        return $foods;
+    }
     
     public static function getAllUserFoods()
     {        
@@ -93,6 +105,33 @@ class FoodController extends Controller
         
         return $foods;
     }
+    
+    public static function listfoods($date)
+    {   
+        echo '<tr><td><b>Food<b></td><td><b>Calories</b></td><td><b>Protein</b></td><td><b>Carbs</b></td><td><b>Fats</b></td></tr>';         
+        $foods = FoodController::getUserFoods( Auth::user()->id, $date);
+        
+        foreach($foods as $food)
+        {
+            echo '<tr>';
+                echo '<td style="width:30%">'.$food->food_name.'</td>';
+                echo '<td style="width:15%">'.$food->food_calories.'</td>';
+                echo '<td style="width:15%">'.$food->food_protein.'</td>';
+                echo '<td style="width:15%">'.$food->food_carbs.'</td>';
+                echo '<td style="width:15%">'.$food->food_fats.'</td>';
+            echo '</tr>';
+        }
+        $foodTotals = FoodController::getUserFoodTotal( Auth::user()->id, $date);
+        echo '<tr>';
+            echo '<td style="width:30%"> </td>';
+            echo '<td style="width:15%"><b>'.reset($foodTotals)->calories.'</b></td>';
+            echo '<td style="width:15%"><b>'.reset($foodTotals)->protein.'</b></td>';
+            echo '<td style="width:15%"><b>'.reset($foodTotals)->carbs.'</b></td>';
+            echo '<td style="width:15%"><b>'.reset($foodTotals)->fats.'</b></td>';
+        echo '</tr>';
+        
+    }
+    
     
     
 

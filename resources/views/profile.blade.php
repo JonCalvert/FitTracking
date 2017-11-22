@@ -1,7 +1,6 @@
 <?php
     use App\Http\Controllers\PhotoController;
-    use App\Http\Controllers\WorkoutController;
-    use App\Http\Controllers\FoodController;
+    use App\Http\Controllers\UserController;
 
 
 ?>
@@ -77,39 +76,14 @@
                     </div>                   
                 </div>
             </div>
-            <div class="panel panel-default" id="act" style="display:block">
+            <div class="panel panel-default" id="act" style="display:block;" >
                 <div class="panel-heading">Activity</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <?php
-                            $currentDate = '';
-                            $foods = FoodController::getAllUserFoods();
-                            foreach($foods as $food)
-                            {   
-                                $isNewDate = explode(" ",$currentDate)[0] != explode(" ",$food->date)[0];
-                                if ( $isNewDate )
-                                {
-                                    echo '<b>'.$food->date.'</b><br>';
-                                }
-                                $currentDate = explode(" ",$food->date)[0];
-                                echo $food->food_name.'<br>';                                                                                                     
-                            }   
-                        ?>  
-                        <?php
-                            $currentDate = '';
-                            $workouts = WorkoutController::getAllUserWorkouts();
-                            foreach($workouts as $workout)
-                            {   
-                                $isNewDate = explode(" ",$currentDate)[0] != explode(" ",$workout->date)[0];
-                                if ( $isNewDate )
-                                {
-                                    echo '<b>'.$workout->date.'</b><br>';
-                                }
-                                $currentDate = explode(" ",$workout->date)[0];
-                                echo $workout->workout_name.'<br>';                                                                                                     
-                            }   
-                        ?>      
-                    </div>                                   
+                <div class="panel-body" style="width:98%; margin:0px 1% 0px 1%;">
+                    <?php
+
+                        $activity = UserController::getUserActivity(Auth::user()->id);
+                        echo $activity;
+                    ?>                                       
                 </div>
             </div>
             <div class="panel panel-default" id="ab" style="display:none">

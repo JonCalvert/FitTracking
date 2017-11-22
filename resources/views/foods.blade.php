@@ -4,6 +4,14 @@
 ?>
 @extends('layouts.app')
 
+<style>
+    .form-control, label, .btn{
+        margin-top: 15px;
+    }
+
+    
+</style>
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -24,37 +32,31 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist" style="float:none">                        
                         <li class="active"><a data-toggle="tab" href="#AddNewfood" role="tab">Add New Food</a></li>
                         <li><a data-toggle="tab" href="#Addfoods" role="tab">Add Today's Food</a></li>
-                        <li><a data-toggle="tab" href="#DisplayFoods" role="tab">Show Today</a></li>
-                        <li><a data-toggle="tab" href="#DailyTotal" role="tab">Show Totals</a></li> 
+                        <li><a data-toggle="tab" href="#DisplayFoods" role="tab">Show Foods</a></li>
+                        <!--<li><a data-toggle="tab" href="#DailyTotal" role="tab">Show Totals</a></li> -->
                     </ul>
                 </div>
                 <div class="tab-content">
                     <div id="AddNewfood" class="tab-pane fade in active">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/addnewfood') }}">
                             {{ csrf_field() }}                        
-                            <label for="foodname" class="col-md-4 control-label">Food name</label>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="foodname" type="text" class="form-control" name="foodname" placeholder="Food name">
                             </div>
-                            <label for="foodcals" class="col-md-4 control-label">Food calories</label>
                             <div class="col-md-6">
-                                <input id="foodcals" type="text" class="form-control" name="foodcals">
+                                <input id="foodcals" type="text" class="form-control" name="foodcals" placeholder="Food calories">
                             </div>
-                            <label for="foodprotein" class="col-md-4 control-label">Food protein</label>
                             <div class="col-md-6">
-                                <input id="foodprotein" type="text" class="form-control" name="foodprotein">
+                                <input id="foodprotein" type="text" class="form-control" name="foodprotein" placeholder="Food protein">
                             </div>
-                            <label for="foodcarbs" class="col-md-4 control-label">Food carbs</label>
                             <div class="col-md-6">
-                                <input id="foodcarbs" type="text" class="form-control" name="foodcarbs">
+                                <input id="foodcarbs" type="text" class="form-control" name="foodcarbs" placeholder="Food carbs">
                             </div>
-                            <label for="foodFats" class="col-md-4 control-label">Food fats</label>
                             <div class="col-md-6">
-                                <input id="foodFats" type="text" class="form-control" name="foodFats">
+                                <input id="foodFats" type="text" class="form-control" name="foodFats" placeholder="Food fats">
                             </div>                    
-
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-12" align="center">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-btn fa fa-plus"></i> Add Food
                                     </button>
@@ -63,10 +65,10 @@
                         </form>    
                     </div>
                     <div id="Addfoods" class="tab-pane fade in">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/addfood') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/addfood') }}" style="margin-left:15px;">
                             {{ csrf_field() }} 
-                            <h2>AddNewfood</h2>
-                            <select class='my_dropdown' name='food' id='my_dropdown' required>
+                            <h2>Add a meal!</h2>
+                            <select class='form-control my_dropdown' name='food' id='my_dropdown'  style="width:50%" required>
                                 <option selected disabled value=''>Select One</option>                            
                                 <?php
                                     $foods = FoodController::getFoods();
@@ -86,32 +88,19 @@
                         </form>
                     </div>
                     <div id="DisplayFoods" class="tab-pane fade in">
-                        <h2>DisplayFoods</h2>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Food</td>
-                                    <td>Cal</td>
-                                    <td>Protein</td>
-                                    <td>Carb</td>
-                                    <td>Fat</td>
-                                </tr>
-                                <?php
-                                    $foods = FoodController::getUserFoods( Auth::user()->id, date('Y-m-d'));
-                                    foreach($foods as $food)
-                                    {
-                                        echo '<tr>';
-                                            echo '<td style="width:30%">'.$food->food_name.'</td>';
-                                            echo '<td style="width:15%">'.$food->food_calories.'</td>';
-                                            echo '<td style="width:15%">'.$food->food_protein.'</td>';
-                                            echo '<td style="width:15%">'.$food->food_carbs.'</td>';
-                                            echo '<td style="width:15%">'.$food->food_fats.'</td>';
-                                        echo '</tr>';
-                                    }    
-                                ?>
-                            </tbody>
-                        </table>
-                        
+                        <b style="display:inline-block;margin-left:15px;">Foods from:</b>
+                        <input type="date" id="foodDate" class="form-control" value="<?php echo date('Y-m-d'); ?>" onblur="listfoods()" style="width:25%;display:inline-block;margin-bottom:20px;margin-left:15px;"> 
+                        <div class="panel panel-default" style="width:98%; margin:0px 1% 1% 1%;" >
+                            <div class="panel-body">
+                                <div id="foods">
+                                    <table style="margin-left:15px;margin-bottom:15px;">
+                                        <tbody id="foodsTable">
+
+                                        </tbody>
+                                    </table>                        
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="DailyTotal" class="tab-pane fade in">
                         <h2>DailyTotal</h2>
@@ -122,4 +111,27 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        var day = $("#foodDate").val();
+        var request = $.get('/foods/listfoods/'+day);
+        request.done(function(response){    
+            $("#foodsTable").html('');
+            $("#foodsTable").append(response);
+        });    
+    })
+    
+    var listfoods = function(){
+        
+        var day = $("#foodDate").val();
+        var request = $.get('/foods/listfoods/'+day);
+        request.done(function(response){
+            $("#foodsTable").html('');
+            console.log(response);
+            $("#foodsTable").append(response);
+        });    
+    }
+    
+    
+</script>
 @endsection

@@ -84,6 +84,50 @@ class WorkoutController extends Controller
         
         return $workouts;
     }
+    
+    public static function listworkouts($date)
+    {   
+        $workouts = WorkoutController::getUserWorkouts( Auth::user()->id, $date);
+        if (count($workouts) > 0)
+        {
+            $currentWorkout = reset($workouts)->workout_name;
+            $workout = reset($workouts);
+            while( $workout != null )
+            {
+                echo '<div class="panel panel-default"><div class="panel-body">';
+                echo $workout->workout_name;
+                echo '<table style="width:75%">
+                    <tbody>
+                        <tr>
+                            <td width="25%"><b>Reps</b></td>
+                            <td width="25%"><b>Weight</b></td>
+                            <td width="40%"><b>Comments</b></td>
+                        </tr>';
+
+                while( $workout != null && $workout->workout_name == $currentWorkout)
+                {
+
+                    echo '<tr>';
+                    echo '<td>'.$workout->workout_reps.'</td>';
+                    echo '<td>'.$workout->workout_weight.'</td>';
+                    echo '<td>'.$workout->workout_comment.'</td>';
+                    echo '</tr>';
+                    $workout = next($workouts);
+                }  
+                echo '</tbody></table></div></div>';
+
+                if( $workout )
+                    $currentWorkout = $workout->workout_name;
+                else 
+                    break;                                      
+            }                                         
+        }
+        else
+        {
+            echo '<p style="text-align:left;">It seems that there is nothing here yet!</p>';
+        }
+
+    }
 
     
     /*
