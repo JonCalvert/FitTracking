@@ -39,15 +39,18 @@ class FoodController extends Controller
     }
     public function add(Request $request)
     {       
-        $id = $request->get('food');
-        
-        DB::table('userfoods')->insert(
-            ['food_id' => $id,
-             'user_id' =>  Auth::user()->id ,
-             'date' => date('Y-m-d G:i:s')
-            ]
-        );
-        
+        $i=1;        
+        while($request->get('food'.$i))
+        {
+            $id = $request->get('food'.$i);        
+            DB::table('userfoods')->insert(
+                ['food_id' => $id,
+                 'user_id' =>  Auth::user()->id ,
+                 'date' => date('Y-m-d G:i:s')
+                ]
+            );
+            $i++;
+        }      
         return view('foods');        
     }
     /*

@@ -29,21 +29,27 @@ class WorkoutController extends Controller
         return view('workouts');        
     }
     public function add(Request $request)
-    {       
-        $id = $request->get('workouts');
-        $weight = $request->get('workoutweight');
-        $reps = $request->get('workoutreps');
-        $comment = $request->get('workoutcomment');
-        
-        DB::table('userworkouts')->insert(
-            ['workout_id' => $id,
-             'user_id' =>  Auth::user()->id ,
-             'date' => date('Y-m-d G:i:s'),
-             'workout_reps' => $reps,
-             'workout_weight' => $weight,
-             'workout_comment' => $comment
-            ]
-        );        
+    {
+        $i=1;
+        while($request->get('workouts'.$i))
+        {
+            $id = $request->get('workouts'.$i);
+            $weight = $request->get('workoutweight'.$i);
+            $reps = $request->get('workoutreps'.$i);
+            $comment = $request->get('workoutcomment'.$i);
+
+            DB::table('userworkouts')->insert(
+                ['workout_id' => $id,
+                 'user_id' =>  Auth::user()->id ,
+                 'date' => date('Y-m-d G:i:s'),
+                 'workout_reps' => $reps,
+                 'workout_weight' => $weight,
+                 'workout_comment' => $comment
+                ]
+            );  
+            $i++;
+        }
+            
         return view('workouts');        
     }
     /*
