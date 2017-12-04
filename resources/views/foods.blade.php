@@ -106,17 +106,13 @@
                     </div>
                     <div id="DisplayFoods" class="tab-pane fade in">
                         <b style="display:inline-block;margin-left:15px;">Foods from:</b>
-                        <input type="date" id="foodDate" class="form-control" value="<?php echo date('Y-m-d'); ?>" onblur="listfoods()" style="width:25%;display:inline-block;margin-bottom:20px;margin-left:15px;"> 
-                        <div class="panel panel-default" style="width:98%; margin:0px 1% 1% 1%;" >
-                            <div class="panel-body">
-                                <div id="foods">
-                                    <table style="margin-left:15px;margin-bottom:15px;">
-                                        <tbody id="foodsTable">
+                        <input type="date" id="foodDate" class="form-control" value="<?php echo date('Y-m-d'); ?>" onblur="listfoods()" style="width:25%;display:inline-block;margin-bottom:20px;margin-left:15px;">                         
+                        <div id="foods">
+                            <table style="margin-left:15px;margin-bottom:15px;">
+                                <tbody id="foodsTable">
 
-                                        </tbody>
-                                    </table>                        
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>                                
                         </div>
                     </div>
                     <div id="DailyTotal" class="tab-pane fade in">

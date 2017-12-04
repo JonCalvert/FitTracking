@@ -111,29 +111,37 @@ class FoodController extends Controller
     
     public static function listfoods($date)
     {   
-        echo '<tr><td><b>Food<b></td><td><b>Calories</b></td><td><b>Protein</b></td><td><b>Carbs</b></td><td><b>Fats</b></td></tr>';         
+             
         $foods = FoodController::getUserFoods( Auth::user()->id, $date);
-        
-        foreach($foods as $food)
+        if (count($foods) > 0)
         {
+            echo '<tr><td><b>Food<b></td><td><b>Calories</b></td><td><b>Protein</b></td><td><b>Carbs</b></td><td><b>Fats</b></td></tr>';    
+            foreach($foods as $food)
+            {
+                echo '<tr>';
+                    echo '<td style="width:30%">'.$food->food_name.'</td>';
+                    echo '<td style="width:15%">'.$food->food_calories.'</td>';
+                    echo '<td style="width:15%">'.$food->food_protein.'</td>';
+                    echo '<td style="width:15%">'.$food->food_carbs.'</td>';
+                    echo '<td style="width:15%">'.$food->food_fats.'</td>';
+                echo '</tr>';
+            }
+            $foodTotals = FoodController::getUserFoodTotal( Auth::user()->id, $date);
             echo '<tr>';
-                echo '<td style="width:30%">'.$food->food_name.'</td>';
-                echo '<td style="width:15%">'.$food->food_calories.'</td>';
-                echo '<td style="width:15%">'.$food->food_protein.'</td>';
-                echo '<td style="width:15%">'.$food->food_carbs.'</td>';
-                echo '<td style="width:15%">'.$food->food_fats.'</td>';
+                echo '<td style="width:30%"> </td>';
+                echo '<td style="width:15%"><b>'.reset($foodTotals)->calories.'</b></td>';
+                echo '<td style="width:15%"><b>'.reset($foodTotals)->protein.'</b></td>';
+                echo '<td style="width:15%"><b>'.reset($foodTotals)->carbs.'</b></td>';
+                echo '<td style="width:15%"><b>'.reset($foodTotals)->fats.'</b></td>';
             echo '</tr>';
         }
-        $foodTotals = FoodController::getUserFoodTotal( Auth::user()->id, $date);
-        echo '<tr>';
-            echo '<td style="width:30%"> </td>';
-            echo '<td style="width:15%"><b>'.reset($foodTotals)->calories.'</b></td>';
-            echo '<td style="width:15%"><b>'.reset($foodTotals)->protein.'</b></td>';
-            echo '<td style="width:15%"><b>'.reset($foodTotals)->carbs.'</b></td>';
-            echo '<td style="width:15%"><b>'.reset($foodTotals)->fats.'</b></td>';
-        echo '</tr>';
+        else
+        {
+            echo '<p style="text-align:left;">It seems that there is nothing here!</p>';
+        }
         
     }
+    
     
     
     

@@ -42,9 +42,26 @@
                         <div class="panel-heading">Activity</div>
                         <div class="panel-body" style="width:98%; margin:0px 1% 0px 1%;">
                             <?php
-
-                                $activity = UserController::getUserActivity(Auth::user()->id);
-                                echo $activity;
+                                $currentDate = '';
+                                $activities = UserController::getUserActivity(Auth::user()->id);
+                                foreach($activities as $activity)
+                                {   
+                                    $isNewDate = explode(" ",$currentDate)[0] != explode(" ",$activity->date)[0];
+                                    if ( $isNewDate )
+                                    {
+                                        if ( reset($activities) != $activity )
+                                            echo '</div></div>';
+                                        echo '<div class="panel panel-default" ><div class="panel-body">';
+                                        echo '<div class="col-md-12" style="margin:5px 0px 5px -15px;text-align:left;"><b>'.explode(" ", $activity->date)[0].'</b></div>';
+                                    }
+                                    $currentDate = explode(" ",$activity->date)[0];
+                                    echo '<p style="clear:both">'.$activity->name;
+                                    if ($activity->count > 1)
+                                    {
+                                        echo '&nbsp &nbsp x'.$activity->count;
+                                    }
+                                    echo '</p>';  
+                                }   
                             ?>                                       
                         </div>
                     </div>

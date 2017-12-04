@@ -72,19 +72,17 @@
                     <div id="AddWorkout" style="display:none">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/addworkout') }}">
                             {{ csrf_field() }}                            
-                            <h2>Add Workout</h2>                          
+                            <h2>Add Workout</h2>    
+                            <div class="form-group" >
+                                <button type="button" class="btn btn-default" id="addform">
+                                    <i class="fa fa-btn fa fa-plus"></i> Add Another Workout
+                                </button>
+                                <button type="button" class="btn btn-default" id="removeform">
+                                    <i class="fa fa-btn fa fa-minus"></i> Remove a Workout
+                                </button>
+                            </div>
                             
-                            
-                            
-                            
-                            <button type="button" class="btn btn-default" id="addform">
-                                <i class="fa fa-btn fa fa-plus"></i> Add Another Workout
-                            </button>
-                            <button type="button" class="btn btn-default" id="removeform">
-                                <i class="fa fa-btn fa fa-minus"></i> Remove a Workout
-                            </button>
-                                                          
-                            <div class="form-group" stlye="margin-top:15px;">
+                            <div class="form-group">
                                 <div class="col-md-12" align="center">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="glyphicon glyphicon-ok"></i> Submit!

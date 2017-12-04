@@ -130,7 +130,7 @@ class WorkoutController extends Controller
         }
         else
         {
-            echo '<p style="text-align:left;">It seems that there is nothing here yet!</p>';
+            echo '<p style="text-align:left;">It seems that there is nothing here!</p>';
         }
 
     }
